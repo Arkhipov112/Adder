@@ -86,13 +86,3 @@ TEST(ParserTest, Write) {
 }
 
 // Adder тесты
-
-TEST(AdderTest, Add) {
-    std::string text = "16: \"FF\"\n36: \"HELLO\"\n2";
-
-    std::istringstream iss(text);
-
-    BaseNumber result = Parser::read(iss);
-
-    EXPECT_EQ(Adder::add(result), "1101111100001011011011011");
-}

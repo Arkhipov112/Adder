@@ -16,8 +16,8 @@ public:
 
 private:
 	// Конвертирует число number, записанное в системе base, в десятичную систему
-	static int convertToDecimal(const std::string& number, int base);
+	static int convertToDecimal(const std::string& number, int base) noexcept;
 
 	// Конвертирует число number в систему base
-	static std::string convertToString(int number, int base);
+	static std::string convertToString(int number, int base) noexcept;
 };

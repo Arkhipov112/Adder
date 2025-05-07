@@ -2,19 +2,6 @@
 
 #include "parser.hpp"
 
-namespace {
-	// Проверяет, что каждый символ строки буква или цифра
-	bool check(const std::string& line) {
-		for (char symbol : line) {
-			if ((symbol < '0' || symbol > '9') && (symbol < 'a' || symbol > 'z') && (symbol < 'A' || symbol > 'Z')) {
-				return false;
-			}
-		}
-
-		return true;
-	}
-}
-
 BaseNumber Parser::read(std::istream& in) {
 	BaseNumber result;
 
@@ -39,14 +26,6 @@ BaseNumber Parser::read(std::istream& in) {
 	result.number_b = temp[3];
 
 	result.base_c = std::stoi(temp[4]);
-
-	if ((result.base_a < 0) || (result.base_b < 0) || (result.base_c < 0)) {
-		throw (std::invalid_argument("Base cannot be negative"));
-	}
-
-	if (!check(result.number_a) || !check(result.number_b)) {
-		throw (std::invalid_argument("Number must contain the characters (from 0 to 9) and (from a to z) and (from A to Z)"));
-	}
 
 	return result;
 }

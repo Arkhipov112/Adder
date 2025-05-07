@@ -11,8 +11,12 @@ namespace {
 }
 
 std::string Adder::add(const BaseNumber& base_number) {
-	if ((base_number.base_c < BASE_MIN) || (base_number.base_c > BASE_MAX)) {
+	if (((base_number.base_a < BASE_MIN) || (base_number.base_a > BASE_MAX)) && ((base_number.base_b < BASE_MIN) || (base_number.base_b > BASE_MAX)) && ((base_number.base_c < BASE_MIN) || (base_number.base_c > BASE_MAX))) {
 		throw (std::invalid_argument("Base takes a value from 2 to 36"));
+	}
+
+	if (base_number.number_a.empty() || base_number.number_b.empty()) {
+		throw (std::invalid_argument("The value is missing"));
 	}
 
 	std::string result;
@@ -25,21 +29,10 @@ std::string Adder::add(const BaseNumber& base_number) {
 	return result;
 }
 
-int Adder::convertToDecimal(const std::string& number, int base) {
-	if ((base < BASE_MIN) || (base > BASE_MAX)) {
-		throw (std::invalid_argument("Base takes a value from 2 to 36"));
-	}
-
+int Adder::convertToDecimal(const std::string& number, int base) noexcept {
+	int result;
+	
 	size_t length = number.length();
-
-	for (size_t i = 0; i < length; ++i) {
-		if ((number[i] < '0' || number[i] > '9') && (number[i] < 'a' || number[i] > 'z') && (number[i] < 'A' || number[i] > 'Z')) {
-			throw (std::invalid_argument("The Number must contain the characters (from 0 to 9) and (from a to z) and (from A to Z)"));
-		}
-	}
-
-	int result = 0;
-
 	for (size_t i = 0; i < length; ++i) {
 		char digit = static_cast<char>(number[(length - 1) - i]);
 		int value = std::isdigit(digit) ? (digit - '0') : (std::toupper(digit) - 'A' + 10);
@@ -49,15 +42,7 @@ int Adder::convertToDecimal(const std::string& number, int base) {
 	return result;
 }
 
-std::string Adder::convertToString(int number, int base) {
-	if ((base < BASE_MIN) || (base > BASE_MAX)) {
-		throw (std::invalid_argument("Base takes a value from 2 to 36"));
-	}
-
-	if (number < 0) {
-		throw (std::invalid_argument("Number cannot be negative"));
-	}
-
+std::string Adder::convertToString(int number, int base) noexcept {
 	std::string result;
 
 	while (number > 0) {
