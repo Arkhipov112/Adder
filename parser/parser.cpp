@@ -2,9 +2,11 @@
 
 #include "parser.hpp"
 
-BaseNumber Parser::read(std::istream& in) {
-	BaseNumber result;
+namespace {
+	const int NumberParsedData = 5;
+}
 
+BaseNumber Parser::read(std::istream& in) {
 	std::vector<std::string> temp;
 
 	std::string line;
@@ -15,18 +17,11 @@ BaseNumber Parser::read(std::istream& in) {
 		}
 	}
 
-	if (temp.size() != 5) {
+	if (temp.size() != NumberParsedData) {
 		throw (std::length_error("Does not match the type"));
 	}
 
-	result.base_a = std::stoi(temp[0]);
-	result.number_a = temp[1];
-
-	result.base_b = std::stoi(temp[2]);
-	result.number_b = temp[3];
-
-	result.base_c = std::stoi(temp[4]);
-
+	BaseNumber result(temp[1], std::stoi(temp[0]), temp[3], std::stoi(temp[2]), std::stoi(temp[4]));
 	return result;
 }
 
