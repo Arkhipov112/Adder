@@ -6,7 +6,7 @@ namespace {
 	const int NumberParsedData = 5;
 }
 
-BaseNumber Parser::read(std::istream& in) {
+NumberBase Parser::read(std::istream& in) {
 	std::vector<std::string> temp;
 
 	std::string line;
@@ -21,7 +21,7 @@ BaseNumber Parser::read(std::istream& in) {
 		throw (std::length_error("Does not match the type"));
 	}
 
-	BaseNumber result(temp[1], std::stoi(temp[0]), temp[3], std::stoi(temp[2]), std::stoi(temp[4]));
+	NumberBase result(temp[1], std::stoi(temp[0]), temp[3], std::stoi(temp[2]), std::stoi(temp[4]));
 	return result;
 }
 

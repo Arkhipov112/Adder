@@ -1,32 +1,30 @@
 #pragma once
-#include <array>
 #include <string>
 
-namespace {
-	const int NUMBER_BASES = 3;
-	const int NUMBER_VALUE = 2;
-}
+typedef std::pair<std::string, int> NumberPair;
 
-struct BaseNumber final {
+struct NumberBase final {
 public:
-	BaseNumber(std::string number_a, int base_a, std::string number_b, int base_b, int base_c);
+	NumberBase(std::string number_a, int base_a, std::string number_b, int base_b, int base_c);
 
-	std::array<int, NUMBER_BASES> getBases() const noexcept;
-	std::array<std::string, NUMBER_VALUE> getNumbers() const noexcept;
+	NumberPair getFirstNumber() const noexcept;
+	NumberPair getSecondNumber() const noexcept;
+	int getTargetBase() const noexcept;
 
 private:
 	// Проверяет, чтобы number содержало только буквы и цифры
 	bool isValidNumber(const std::string& number) const noexcept;
 
-	std::array<int, NUMBER_BASES> bases;
-	std::array<std::string, NUMBER_VALUE> numbers;
+	// Вектор пар <значение,>
+	std::pair<std::string, int> number_1, number_2;
+	int target;
 };
 
 class Adder final {
 public:
 	Adder() = delete;
 
-	static std::string add(const BaseNumber& base_number) noexcept;
+	static std::string add(const NumberBase& base_number) noexcept;
 
 private:
 	// Конвертирует число number, записанное в системе base, в десятичную систему

@@ -12,13 +12,13 @@ namespace {
 
 // Adder
 
-std::string Adder::add(const BaseNumber& base_number) noexcept {
+std::string Adder::add(const NumberBase& base_number) noexcept {
 	std::string result;
 
-	int decimal_number_a = convertToDecimal(base_number.getNumbers()[0], base_number.getBases()[0]);
-	int decimal_number_b = convertToDecimal(base_number.getNumbers()[1], base_number.getBases()[1]);
+	int decimal_number_a = convertToDecimal(base_number.getFirstNumber().first, base_number.getFirstNumber().second);
+	int decimal_number_b = convertToDecimal(base_number.getSecondNumber().first, base_number.getSecondNumber().second);
 
-	result = convertToString(decimal_number_a + decimal_number_b, base_number.getBases()[2]);
+	result = convertToString(decimal_number_a + decimal_number_b, base_number.getTargetBase());
 
 	return result;
 }
@@ -58,10 +58,10 @@ std::string Adder::convertToString(int number, int base) noexcept {
 	return result;
 }
 
-// BaseNumber
+// NumberBase
 
-BaseNumber::BaseNumber(std::string number_a, int base_a, std::string number_b, int base_b, int base_c) 
-: bases{base_a, base_b, base_c}, numbers{ number_a, number_b } {
+NumberBase::NumberBase(std::string number_a, int base_a, std::string number_b, int base_b, int base_c) 
+: number_1(number_a, base_a), number_2(number_b, base_b), target(base_c) {
 	if ((base_a < BASE_MIN || base_a > BASE_MAX) && (base_b < BASE_MIN || base_b > BASE_MAX)) {
 		throw (std::invalid_argument("The base takes a value from 2 to 36"));
 	}
@@ -71,15 +71,19 @@ BaseNumber::BaseNumber(std::string number_a, int base_a, std::string number_b, i
 	}
 }
 
-std::array<int, NUMBER_BASES> BaseNumber::getBases() const noexcept {
-	return bases;
+std::pair<std::string, int> NumberBase::getFirstNumber() const noexcept {
+	return number_1;
 }
 
-std::array<std::string, NUMBER_VALUE> BaseNumber::getNumbers() const noexcept {
-	return numbers;
+std::pair<std::string, int> NumberBase::getSecondNumber() const noexcept {
+	return number_2;
 }
 
-bool BaseNumber::isValidNumber(const std::string& number) const noexcept {
+int NumberBase::getTargetBase() const noexcept {
+	return target;
+}
+
+bool NumberBase::isValidNumber(const std::string& number) const noexcept {
 	for (char i : number) {
 		if ((i < '0' || i > '9') && (i < 'a' || i > 'z') && (i < 'A' || i > 'Z')) {
 			return false;

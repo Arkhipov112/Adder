@@ -9,13 +9,13 @@ TEST(ParserTest, ReadCorrectData) {
     std::string text = "16: \"FF\"\n36: \"HELLO\"\n2";
     std::istringstream iss(text);
 
-    BaseNumber result = Parser::read(iss);
+    NumberBase result = Parser::read(iss);
     
-    EXPECT_EQ(result.getBases()[0], 16);
-    EXPECT_EQ(result.getNumbers()[0], "FF");
-    EXPECT_EQ(result.getBases()[1], 36);
-    EXPECT_EQ(result.getNumbers()[1], "HELLO");
-    EXPECT_EQ(result.getBases()[2], 2);
+    EXPECT_EQ(result.getFirstNumber().first, "FF");
+    EXPECT_EQ(result.getFirstNumber().second, 16);
+    EXPECT_EQ(result.getSecondNumber().first, "HELLO");
+    EXPECT_EQ(result.getSecondNumber().second, 36);
+    EXPECT_EQ(result.getTargetBase(), 2);
 }
 
 TEST(ParserTest, ReadEmptyLine) {
@@ -23,7 +23,7 @@ TEST(ParserTest, ReadEmptyLine) {
     std::istringstream iss(text);
 
     try {
-        BaseNumber result = Parser::read(iss);
+        NumberBase result = Parser::read(iss);
     }
 
     catch (const std::exception& exception) {
@@ -36,7 +36,7 @@ TEST(ParserTest, ReadIncorrectData1) {
     std::istringstream iss(text);
 
     try {
-        BaseNumber result = Parser::read(iss);
+        NumberBase result = Parser::read(iss);
     }
 
     catch (const std::exception& exception) {
@@ -49,7 +49,7 @@ TEST(ParserTest, ReadIncorrectData2) {
     std::istringstream iss(text);
 
     try {
-        BaseNumber result = Parser::read(iss);
+        NumberBase result = Parser::read(iss);
     }
 
     catch (const std::exception& exception) {
@@ -60,7 +60,7 @@ TEST(ParserTest, ReadIncorrectData2) {
 // Adder тесты
 
 TEST(AdderTest, Add) {
-    BaseNumber base_number("FF", 16, "HELLO", 36, 2);
+    NumberBase base_number("FF", 16, "HELLO", 36, 2);
 
     EXPECT_STREQ(Adder::add(base_number).c_str(), "1101111100001011011011011");
 }

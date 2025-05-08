@@ -9,7 +9,7 @@ class Parser final {
 public:
 	Parser() = delete;
 
-	static BaseNumber read(std::istream& in);
+	static NumberBase read(std::istream& in);
 	static void write(std::ostream& out, const std::string& buffer) noexcept;
 
 private:
