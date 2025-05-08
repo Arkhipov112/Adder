@@ -66,7 +66,7 @@ BaseNumber::BaseNumber(std::string number_a, int base_a, std::string number_b, i
 		throw (std::invalid_argument("The base takes a value from 2 to 36"));
 	}
 
-	else if (!checkValue(number_a) || !checkValue(number_b)) {
+	else if (!isValidNumber(number_a) || !isValidNumber(number_b)) {
 		throw (std::invalid_argument("The value can contain only letters and numbers"));
 	}
 }
@@ -79,7 +79,7 @@ std::array<std::string, NUMBER_VALUE> BaseNumber::getNumbers() const noexcept {
 	return numbers;
 }
 
-bool BaseNumber::checkValue(const std::string& number) const noexcept {
+bool BaseNumber::isValidNumber(const std::string& number) const noexcept {
 	for (char i : number) {
 		if ((i < '0' || i > '9') && (i < 'a' || i > 'z') && (i < 'A' || i > 'Z')) {
 			return false;

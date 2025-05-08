@@ -16,7 +16,7 @@ public:
 
 private:
 	// Проверяет, чтобы number содержало только буквы и цифры
-	bool checkValue(const std::string& number) const noexcept;
+	bool isValidNumber(const std::string& number) const noexcept;
 
 	std::array<int, NUMBER_BASES> bases;
 	std::array<std::string, NUMBER_VALUE> numbers;
