@@ -1,52 +1,51 @@
 #include <algorithm>
-#include <cctype>
 #include <cmath>
-#include <stdexcept>
 
 #include "adder.hpp"
 
-std::string Adder::add(const NumberBase& base_number) noexcept {
-	std::string result;
+std::string adder::add(const numbase& nb) noexcept {
+	std::string res;
 
-	int decimal_number_a = convertToDecimal(base_number.getFirstNumber().first, base_number.getFirstNumber().second);
-	int decimal_number_b = convertToDecimal(base_number.getSecondNumber().first, base_number.getSecondNumber().second);
+	int dec_num_a = to_dec(nb.get_numpair_a().first, nb.get_numpair_a().second);
+	int dec_num_b = to_dec(nb.get_numpair_b().first, nb.get_numpair_b().second);
 
-	result = convertToString(decimal_number_a + decimal_number_b, base_number.getTargetBase());
+	res = to_str(dec_num_a + dec_num_b, nb.get_target());
 
-	return result;
+	return res;
 }
 
-int Adder::convertToDecimal(const std::string& number, int base) noexcept {
-	int result = 0;
+int adder::to_dec(const std::string& num, int base) noexcept {
+	int res = 0;
 	
-	size_t length = number.length();
-	for (size_t i = 0; i < length; ++i) {
-		char digit = static_cast<char>(number[(length - 1) - i]);
-		int value = std::isdigit(digit) ? (digit - '0') : (std::toupper(digit) - 'A' + 10);
-		result += value * static_cast<int>(std::pow(base, i));
+	size_t len = num.length();
+	for (size_t i = 0; i < len; ++i) {
+		char digit = static_cast<char>(num[(len - 1) - i]);
+		int val = std::isdigit(digit) ? (digit - '0') : (std::toupper(digit) - 'A' + 10);
+		
+		res += val * static_cast<int>(std::pow(base, i));
 	}
 
-	return result;
+	return res;
 }
 
-std::string Adder::convertToString(int number, int base) noexcept {
-	std::string result;
+std::string adder::to_str(int num, int base) noexcept {
+	std::string res;
 
-	while (number > 0) {
-		int remains = number % base;
+	while (num > 0) {
+		int r = num % base;
 
-		if (remains < 10) {
-			result += remains + '0';
+		if (r < 10) {
+			res += r + '0';
 		}
 
 		else {
-			result += remains + 'A' - 10;
+			res += r + 'A' - 10;
 		}
 
-		number /= base;
+		num /= base;
 	}
 
-	std::reverse(result.begin(), result.end());
+	std::reverse(res.begin(), res.end());
 
-	return result;
+	return res;
 }

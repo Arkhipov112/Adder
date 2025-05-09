@@ -3,22 +3,17 @@
 #include <string>
 #include <vector>
 
-#include "../numberbase/numberbase.hpp"
+#include "../numbase/numbase.hpp"
 
-class Parser final {
+class parser final {
 public:
-	Parser() = delete;
+	parser() = delete;
 
-	static NumberBase read(std::istream& in);
+	static numbase read(std::istream& in);
 	static void write(std::ostream& out, const std::string& buffer) noexcept;
 
 private:
-	// Возвращает строку без отступов слева и справа
 	static std::string trim(const std::string& line) noexcept;
-
-	// Заменяет разделительные символы на пробел
-	static std::string split(const std::string& line, const std::string& delimiters) noexcept;
-
-	// Возвращает вектор из отдельных значений
+	static std::string split(const std::string& line, const std::string& delims) noexcept;
 	static std::vector<std::string> parse(const std::string& line) noexcept;
 };

@@ -1,18 +1,14 @@
 #pragma once
 #include <string>
 
-#include "../numberbase/numberbase.hpp"
+#include "../numbase/numbase.hpp"
 
-class Adder final {
+class adder final {
 public:
-	Adder() = delete;
-
-	static std::string add(const NumberBase& base_number) noexcept;
+	adder() = delete;
+	static std::string add(const numbase& nb) noexcept;
 
 private:
-	// Конвертирует число number, записанное в системе base, в десятичную систему
-	static int convertToDecimal(const std::string& number, int base) noexcept;
-
-	// Конвертирует число number в систему base
-	static std::string convertToString(int number, int base) noexcept;
+	static int to_dec(const std::string& num, int base) noexcept;
+	static std::string to_str(int num, int base) noexcept;
 };
