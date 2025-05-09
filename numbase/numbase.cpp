@@ -9,7 +9,7 @@ namespace {
 
 numbase::numbase(std::string num_a, int base_a, std::string num_b, int base_b, int base_c) 
 : numpair_a(num_a, base_a), numpair_b(num_b, base_b), target(base_c) {
-	if ((base_a < BASE_MIN || base_a > BASE_MAX) && (base_b < BASE_MIN || base_b > BASE_MAX)) {
+	if ((base_a < BASE_MIN || base_a > BASE_MAX) || (base_b < BASE_MIN || base_b > BASE_MAX) || (base_c < BASE_MIN || base_c > BASE_MAX)) {
 		throw (std::invalid_argument("Base takes a value from 2 to 36"));
 	}
 
