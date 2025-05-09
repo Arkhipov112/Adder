@@ -3,7 +3,7 @@
 
 #include "adder.hpp"
 
-std::string adder::add(const numbase& nb) noexcept {
+std::string adder::add(const numbase& nb) {
 	std::string res;
 
 	int dec_num_a = to_dec(nb.get_numpair_a().first, nb.get_numpair_a().second);
@@ -14,7 +14,7 @@ std::string adder::add(const numbase& nb) noexcept {
 	return res;
 }
 
-int adder::to_dec(const std::string& num, int base) noexcept {
+int adder::to_dec(const std::string& num, int base) {
 	int res = 0;
 	
 	size_t len = num.length();
@@ -28,7 +28,7 @@ int adder::to_dec(const std::string& num, int base) noexcept {
 	return res;
 }
 
-std::string adder::to_str(int num, int base) noexcept {
+std::string adder::to_str(int num, int base) {
 	std::string res;
 
 	while (num > 0) {

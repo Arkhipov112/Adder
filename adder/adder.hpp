@@ -6,9 +6,9 @@
 class adder final {
 public:
 	adder() = delete;
-	static std::string add(const numbase& nb) noexcept;
+	static std::string add(const numbase& nb);
 
 private:
-	static int to_dec(const std::string& num, int base) noexcept;
-	static std::string to_str(int num, int base) noexcept;
+	static int to_dec(const std::string& num, int base);
+	static std::string to_str(int num, int base);
 };

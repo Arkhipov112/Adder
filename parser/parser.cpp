@@ -28,7 +28,7 @@ void parser::write(std::ostream& out, const std::string& buffer) noexcept {
 	out << (": \"" + buffer + "\"");
 }
 
-std::string parser::trim(const std::string& line) noexcept {
+std::string parser::trim(const std::string& line) {
 	std::string res;
 
 	std::string whitespace = " \t";
@@ -67,7 +67,7 @@ std::string parser::split(const std::string& line, const std::string& delims) no
 	return res;
 }
 
-std::vector<std::string> parser::parse(const std::string& line) noexcept {
+std::vector<std::string> parser::parse(const std::string& line) {
 	std::vector<std::string> res;
 
 	size_t first = 0;
