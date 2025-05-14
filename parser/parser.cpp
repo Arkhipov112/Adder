@@ -35,6 +35,8 @@ void parser::write(std::ostream& out, const std::string& buffer) {
 	out << (": \"" + buffer + "\"");
 }
 
+
+
 std::vector<std::string> parser::split(const std::string& line, const std::string& delims) {
 	std::vector<std::string> res;
 
