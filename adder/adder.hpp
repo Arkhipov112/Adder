@@ -1,14 +1,14 @@
 #pragma once
-#include <string>
-
 #include "../numbase/numbase.hpp"
+
+#include <string>
 
 class adder final {
 public:
 	adder() = delete;
-	static std::string add(const numbase& nb);
+	static number_with_base add(const addition_param& ap);
 
 private:
-	static int to_dec(const numpair& np);
+	static int to_dec(const number_with_base& nb);
 	static std::string to_str(int num, int base);
 };

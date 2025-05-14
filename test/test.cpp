@@ -3,48 +3,48 @@
 #include "../parser/parser.hpp"
 #include "../adder/adder.hpp"
 
-TEST(NumbaseTest, ConstructorAndGettersValidData) {
-    numbase nb({ "FF", 16 }, { "HELLO", 36 }, 2);
+TEST(AdditionParamTest, ConstructorAndGettersValidData) {
+    addition_param ap(number_with_base("FF", 16), number_with_base("HELLO", 36), 2);
 
-    numpair np_a = nb.get_numpair_a();
-    EXPECT_EQ(np_a.first, "FF");
-    EXPECT_EQ(np_a.second, 16);
+    number_with_base nb_a = ap.get_number_with_base_a();
+    EXPECT_EQ(nb_a.get_num(), "FF");
+    EXPECT_EQ(nb_a.get_base(), 16);
 
-    numpair np_b = nb.get_numpair_b();
-    EXPECT_EQ(np_b.first, "HELLO");
-    EXPECT_EQ(np_b.second, 36);
+    number_with_base nb_b = ap.get_number_with_base_b();
+    EXPECT_EQ(nb_b.get_num(), "HELLO");
+    EXPECT_EQ(nb_b.get_base(), 36);
 
-    EXPECT_EQ(nb.get_target(), 2);
+    EXPECT_EQ(ap.get_target(), 2);
 }
 
-TEST(NumbaseTest, ConstructorAndGettersValidDataConst) {
-    const numbase nb({ "FF", 16 }, { "HELLO", 36 }, 2);
+TEST(AdditionParamTest, ConstructorAndGettersValidDataConst) {
+    const addition_param ap(number_with_base("FF", 16), number_with_base("HELLO", 36), 2);
 
-    const numpair np_a = nb.get_numpair_a();
-    EXPECT_EQ(np_a.first, "FF");
-    EXPECT_EQ(np_a.second, 16);
+    const number_with_base nb_a = ap.get_number_with_base_a();
+    EXPECT_EQ(nb_a.get_num(), "FF");
+    EXPECT_EQ(nb_a.get_base(), 16);
 
-    const numpair np_b = nb.get_numpair_b();
-    EXPECT_EQ(np_b.first, "HELLO");
-    EXPECT_EQ(np_b.second, 36);
+    const number_with_base nb_b = ap.get_number_with_base_b();
+    EXPECT_EQ(nb_b.get_num(), "HELLO");
+    EXPECT_EQ(nb_b.get_base(), 36);
 
-    EXPECT_EQ(nb.get_target(), 2);
+    EXPECT_EQ(ap.get_target(), 2);
 }
 
-TEST(NumbaseTest, ConstructorInvalidData) {
-    EXPECT_THROW(numbase({ "FF", 0 }, { "HELLO", 36 }, 2), std::invalid_argument);
-    EXPECT_THROW(numbase({ "FF", 16 }, { "HELLO", 0 }, 2), std::invalid_argument);
-    EXPECT_THROW(numbase({ "FF", 16 }, { "HELLO", 36 }, 0), std::invalid_argument);
+TEST(AdditionParamTest, ConstructorInvalidData) {
+    EXPECT_THROW(addition_param(number_with_base("FF", 0), number_with_base("HELLO", 36), 2), std::invalid_argument);
+    EXPECT_THROW(addition_param(number_with_base("FF", 16), number_with_base("HELLO", 0), 2), std::invalid_argument);
+    EXPECT_THROW(addition_param(number_with_base("FF", 16), number_with_base("HELLO", 36), 0), std::invalid_argument);
 
-    EXPECT_THROW(numbase({ "FF", -16 }, { "HELLO", 36 }, 2), std::invalid_argument);
-    EXPECT_THROW(numbase({ "FF", 16 }, { "HELLO", -36 }, 2), std::invalid_argument);
-    EXPECT_THROW(numbase({ "FF", 16 }, { "HELLO", 36 }, -2), std::invalid_argument);
+    EXPECT_THROW(addition_param(number_with_base("FF", -16), number_with_base("HELLO", 36), 2), std::invalid_argument);
+    EXPECT_THROW(addition_param(number_with_base("FF", 16), number_with_base("HELLO", -36), 2), std::invalid_argument);
+    EXPECT_THROW(addition_param(number_with_base("FF", 16), number_with_base("HELLO", 36), -2), std::invalid_argument);
 
-    EXPECT_THROW(numbase({ "@FF", 16 }, { "HELLO", 36 }, 2), std::invalid_argument);
-    EXPECT_THROW(numbase({ "FF", 16 }, { "@HELLO", 36 }, 2), std::invalid_argument);
+    EXPECT_THROW(addition_param(number_with_base("@FF", 16), number_with_base("HELLO", 36), 2), std::invalid_argument);
+    EXPECT_THROW(addition_param(number_with_base("FF", 16), number_with_base("@HELLO", 36), 2), std::invalid_argument);
 
-    EXPECT_THROW(numbase({ "FF", 2 }, { "HELLO", 36 }, 2), std::invalid_argument);
-    EXPECT_THROW(numbase({ "FF", 16 }, { "HELLO", 2 }, 2), std::invalid_argument);
+    EXPECT_THROW(addition_param(number_with_base("FF", 2), number_with_base("HELLO", 36), 2), std::invalid_argument);
+    EXPECT_THROW(addition_param(number_with_base("FF", 16), number_with_base("HELLO", 2), 2), std::invalid_argument);
 }
 
 TEST(ParserTest, ReadValidData) {
@@ -54,12 +54,12 @@ TEST(ParserTest, ReadValidData) {
         "\t2"
     );
 
-    numbase nb = parser::read(iss);
-    EXPECT_EQ(nb.get_numpair_a().first, "FF");
-    EXPECT_EQ(nb.get_numpair_a().second, 16);
-    EXPECT_EQ(nb.get_numpair_b().first, "HELLO");
-    EXPECT_EQ(nb.get_numpair_b().second, 36);
-    EXPECT_EQ(nb.get_target(), 2);
+    addition_param ap = parser::read(iss);
+    EXPECT_EQ(ap.get_number_with_base_a().get_num(), "FF");
+    EXPECT_EQ(ap.get_number_with_base_a().get_base(), 16);
+    EXPECT_EQ(ap.get_number_with_base_b().get_num(), "HELLO");
+    EXPECT_EQ(ap.get_number_with_base_b().get_base(), 36);
+    EXPECT_EQ(ap.get_target(), 2);
 }
 
 TEST(ParserTest, ReadInvalidData) {
@@ -88,15 +88,19 @@ TEST(ParserTest, WriteInvalidData) {
 }
 
 TEST(AdderTest, Add) {
-    numbase nb_1({ "FF", 16 }, { "HELLO", 36 }, 2);
-    EXPECT_EQ(adder::add(nb_1), "1101111100001011011011011");
+    addition_param ap_1(number_with_base("FF", 16), number_with_base("HELLO", 36), 2);
+    EXPECT_EQ(adder::add(ap_1).get_num(), "1101111100001011011011011");
+    EXPECT_EQ(adder::add(ap_1).get_base(), 2);
 
-    numbase nb_2({ "ff", 16 }, { "hello", 36 }, 2);
-    EXPECT_EQ(adder::add(nb_2), "1101111100001011011011011");
+    addition_param ap_2(number_with_base("ff", 16), number_with_base("hello", 36), 2);
+    EXPECT_EQ(adder::add(ap_2).get_num(), "1101111100001011011011011");
+    EXPECT_EQ(adder::add(ap_2).get_base(), 2);
 
-    numbase nb_3({ "1", 10 }, { "1", 10 }, 10);
-    EXPECT_EQ(adder::add(nb_3), "2");
+    addition_param ap_3(number_with_base("1", 10), number_with_base("1", 10), 10);
+    EXPECT_EQ(adder::add(ap_3).get_num(), "2");
+    EXPECT_EQ(adder::add(ap_3).get_base(), 10);
 
-    numbase nb_4({ "ZZ", 36 }, { "10", 10 }, 16);
-    EXPECT_EQ(adder::add(nb_4), "519");
+    addition_param ap_4(number_with_base("ZZ", 36), number_with_base("10", 10), 16);
+    EXPECT_EQ(adder::add(ap_4).get_num(), "519");
+    EXPECT_EQ(adder::add(ap_4).get_base(), 16);
 }

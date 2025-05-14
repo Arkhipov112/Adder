@@ -1,28 +1,26 @@
+#include "adder.hpp"
+
 #include <algorithm>
 #include <cmath>
 
-#include "adder.hpp"
+number_with_base adder::add(const addition_param& ap) {
+	int dec_num_a = to_dec(ap.get_number_with_base_a());
+	int dec_num_b = to_dec(ap.get_number_with_base_b());
 
-std::string adder::add(const numbase& nb) {
-	std::string res;
-
-	int dec_num_a = to_dec(nb.get_numpair_a());
-	int dec_num_b = to_dec(nb.get_numpair_b());
-
-	res = to_str(dec_num_a + dec_num_b, nb.get_target());
+	number_with_base res (to_str(dec_num_a + dec_num_b, ap.get_target()), ap.get_target());
 
 	return res;
 }
 
-int adder::to_dec(const numpair& np) {
+int adder::to_dec(const number_with_base& nb) {
 	int res = 0;
 	
-	size_t len = np.first.length();
+	size_t len = nb.get_num().length();
 	for (size_t i = 0; i < len; ++i) {
-		char digit = static_cast<char>(np.first[(len - 1) - i]);
+		char digit = static_cast<char>(nb.get_num()[(len - 1) - i]);
 		int val = std::isdigit(digit) ? (digit - '0') : (10 + (std::toupper(digit) - 'A'));
 		
-		res += val * static_cast<int>(std::pow(np.second, i));
+		res += val * static_cast<int>(std::pow(nb.get_base(), i));
 	}
 
 	return res;

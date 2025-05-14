@@ -1,20 +1,30 @@
 #pragma once
 #include <string>
 
-typedef std::pair<std::string, int> numpair;
-
-struct numbase final {
+class number_with_base {
 public:
-	numbase(const numpair& np_a, const numpair& np_b, int target);
+	explicit number_with_base(const std::string& num, int base);
+	
+	std::string get_num() const noexcept;
+	int get_base() const noexcept;
 
-	numpair get_numpair_a() const noexcept;
-	numpair get_numpair_b() const noexcept;
+private:
+	bool is_valid_base() const noexcept;
+	bool is_valid_num() const;
+
+	std::string num;
+	int base;
+};
+
+class addition_param final {
+public:
+	explicit addition_param(const number_with_base& nb_a, const number_with_base& nb_b, int target);
+
+	number_with_base get_number_with_base_a() const noexcept;
+	number_with_base get_number_with_base_b() const noexcept;
 	int get_target() const noexcept;
 
 private:
-	bool is_valid_base(const numpair& np) const noexcept;
-	bool is_valid_num(const numpair& np) const;
-
-	numpair np_a, np_b;
+	number_with_base nb_a, nb_b;
 	int target;
 };

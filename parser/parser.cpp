@@ -1,13 +1,13 @@
+#include "parser.hpp"
+
 #include <sstream>
 #include <stdexcept>
-
-#include "parser.hpp"
 
 namespace {
 	const int PARSED_COUNT = 5;
 }
 
-numbase parser::read(std::istream& in) {
+addition_param parser::read(std::istream& in) {
 	std::vector<std::string> temp;
 
 	std::string line;
@@ -21,14 +21,14 @@ numbase parser::read(std::istream& in) {
 		throw (std::length_error("Does not match the type"));
 	}
 
-	numbase res({ temp[1], std::stoi(temp[0]) }, { temp[3], std::stoi(temp[2]) }, std::stoi(temp[4]));
+	addition_param res(number_with_base(temp[1], std::stoi(temp[0])), number_with_base(temp[3], std::stoi(temp[2])), std::stoi(temp[4]));
 	return res;
 }
 
 void parser::write(std::ostream& out, const std::string& buffer) {
 	for (char c : buffer) {
-		if ((c < '0' || c > '9') && (c < 'a' || c > 'z') && (c < 'A' || c > 'Z')) {
-			throw (std::invalid_argument("Buffer can contain only letters and numbers"));
+		if (!std::isalpha(c) && !std::isdigit(c)) {
+    		throw (std::invalid_argument("Buffer can contain only letters and numbers"));
 		}
 	}
 

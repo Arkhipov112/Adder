@@ -1,15 +1,15 @@
 #pragma once
+#include "../numbase/numbase.hpp"
+
 #include <iostream>
 #include <string>
 #include <vector>
-
-#include "../numbase/numbase.hpp"
 
 class parser final {
 public:
 	parser() = delete;
 
-	static numbase read(std::istream& in);
+	static addition_param read(std::istream& in);
 	static void write(std::ostream& out, const std::string& buffer);
 
 private:
