@@ -20,7 +20,7 @@ int adder::to_dec(const std::string& num, int base) {
 	size_t len = num.length();
 	for (size_t i = 0; i < len; ++i) {
 		char digit = static_cast<char>(num[(len - 1) - i]);
-		int val = std::isdigit(digit) ? (digit - '0') : (std::toupper(digit) - 'A' + 10);
+		int val = std::isdigit(digit) ? (digit - '0') : (10 + (std::toupper(digit) - 'A'));
 		
 		res += val * static_cast<int>(std::pow(base, i));
 	}

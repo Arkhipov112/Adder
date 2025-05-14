@@ -11,7 +11,7 @@ public:
 	int get_target() const noexcept;
 
 private:
-	bool is_valid_num(const std::string& num) const noexcept;
+	bool is_valid_num(const numpair& np) const;
 
 	numpair numpair_a, numpair_b;
 	int target;

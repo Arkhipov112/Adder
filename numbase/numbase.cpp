@@ -13,8 +13,8 @@ numbase::numbase(std::string num_a, int base_a, std::string num_b, int base_b, i
 		throw (std::invalid_argument("Base takes a value from 2 to 36"));
 	}
 
-	else if ((!is_valid_num(num_a)) || (!is_valid_num(num_b))) {
-		throw (std::invalid_argument("Number can contain only letters and numbers"));
+	else if ((!is_valid_num(numpair_a)) || (!is_valid_num(numpair_b))) {
+		throw (std::invalid_argument("Number or base is incorrect"));
 	}
 }
 
@@ -30,9 +30,19 @@ int numbase::get_target() const noexcept {
 	return target;
 }
 
-bool numbase::is_valid_num(const std::string& num) const noexcept {
-	for (char c : num) {
-		if ((c < '0' || c > '9') && (c < 'a' || c > 'z') && (c < 'A' || c > 'Z')) {
+bool numbase::is_valid_num(const numpair& np) const {
+	for (char c : np.first) {
+		int val;
+
+		if (isdigit(c)) { val = c - '0'; }
+
+		else if (isupper(c)) { val = 10 + (c - 'A'); }
+
+		else if (islower(c)) { val = 10 + (c - 'a'); }
+
+		else { return false; }
+	
+		if (val >= np.second) {
 			return false;
 		}
 	}
