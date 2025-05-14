@@ -21,7 +21,7 @@ numbase parser::read(std::istream& in) {
 		throw (std::length_error("Does not match the type"));
 	}
 
-	numbase res(temp[1], std::stoi(temp[0]), temp[3], std::stoi(temp[2]), std::stoi(temp[4]));
+	numbase res({ temp[1], std::stoi(temp[0]) }, { temp[3], std::stoi(temp[2]) }, std::stoi(temp[4]));
 	return res;
 }
 

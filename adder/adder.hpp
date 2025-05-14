@@ -9,6 +9,6 @@ public:
 	static std::string add(const numbase& nb);
 
 private:
-	static int to_dec(const std::string& num, int base);
+	static int to_dec(const numpair& np);
 	static std::string to_str(int num, int base);
 };
