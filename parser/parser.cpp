@@ -17,6 +17,7 @@ addition_param parser::read(std::istream& in) {
 		}
 	}
 
+	// Пропускать неверные строки
 	if (temp.size() != PARSED_COUNT) {
 		throw (std::length_error("Does not match the type"));
 	}

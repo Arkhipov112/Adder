@@ -3,6 +3,8 @@
 #include "../parser/parser.hpp"
 #include "../adder/adder.hpp"
 
+// Разбить на файлы
+
 TEST(AdditionParamTest, ConstructorAndGettersValidData) {
     addition_param ap(number_with_base("FF", 16), number_with_base("HELLO", 36), 2);
 
@@ -14,7 +16,7 @@ TEST(AdditionParamTest, ConstructorAndGettersValidData) {
     EXPECT_EQ(nb_b.get_num(), "HELLO");
     EXPECT_EQ(nb_b.get_base(), 36);
 
-    EXPECT_EQ(ap.get_target(), 2);
+    EXPECT_EQ(ap.get_to_base(), 2);
 }
 
 TEST(AdditionParamTest, ConstructorAndGettersValidDataConst) {
@@ -28,7 +30,7 @@ TEST(AdditionParamTest, ConstructorAndGettersValidDataConst) {
     EXPECT_EQ(nb_b.get_num(), "HELLO");
     EXPECT_EQ(nb_b.get_base(), 36);
 
-    EXPECT_EQ(ap.get_target(), 2);
+    EXPECT_EQ(ap.get_to_base(), 2);
 }
 
 TEST(AdditionParamTest, ConstructorInvalidData) {
@@ -59,7 +61,7 @@ TEST(ParserTest, ReadValidData) {
     EXPECT_EQ(ap.get_number_with_base_a().get_base(), 16);
     EXPECT_EQ(ap.get_number_with_base_b().get_num(), "HELLO");
     EXPECT_EQ(ap.get_number_with_base_b().get_base(), 36);
-    EXPECT_EQ(ap.get_target(), 2);
+    EXPECT_EQ(ap.get_to_base(), 2);
 }
 
 TEST(ParserTest, ReadInvalidData) {
