@@ -9,9 +9,15 @@ add_subdirectory(
 )
 
 add_library(
-    numbase
-    numbase/numbase.cpp
-    numbase/numbase.hpp
+    numberbase
+    numberbase/numberbase.cpp
+    numberbase/numberbase.hpp
+)
+
+add_library(
+    additionparam
+    additionparam/additionparam.cpp
+    additionparam/additionparam.hpp
 )
 
 add_library(
@@ -35,7 +41,8 @@ target_link_libraries(
     AdderTest
     gtest
     gtest_main
-    numbase
+    numberbase
+    additionparam
     parser
     adder
 )

@@ -4,26 +4,45 @@
 #include <stdexcept>
 
 namespace {
-	const int PARSED_COUNT = 5;
+	const int PARSED_LINE = 3;
 }
 
 addition_param parser::read(std::istream& in) {
+	number_with_base a;
+	number_with_base b;
+	int base;
+
 	std::vector<std::string> temp;
+
+	int line_count = 0;
 
 	std::string line;
 	while (std::getline(in, line)) {
-		for (const auto& i : split(line, " \t:\"")) {
-			temp.push_back(i);
+		std::vector<std::string> temp = split(line, " \t:\"");
+
+		// Пропускать неверные строки +
+		try {
+			if (line_count < PARSED_LINE - 1) {
+				line_count == 0 ? a = number_with_base(temp[1], std::stod(temp[0])) : b = number_with_base(temp[1], std::stod(temp[0]));
+			}
+
+			else if (line_count == PARSED_LINE - 1) {
+				base = std::stod(temp[0]);
+			}
 		}
+
+		catch (const std::exception& ex) {
+			continue;
+		}
+
+		++line_count;
 	}
 
-	// Пропускать неверные строки
-	if (temp.size() != PARSED_COUNT) {
-		throw (std::length_error("Does not match the type"));
+	if (line_count != PARSED_LINE) {
+		throw (std::invalid_argument("Does not match the type"));
 	}
 
-	addition_param res(number_with_base(temp[1], std::stoi(temp[0])), number_with_base(temp[3], std::stoi(temp[2])), std::stoi(temp[4]));
-	return res;
+	return addition_param(a, b, base);
 }
 
 void parser::write(std::ostream& out, const std::string& buffer) {
