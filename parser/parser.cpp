@@ -20,7 +20,6 @@ addition_param parser::read(std::istream& in) {
 	while (std::getline(in, line)) {
 		std::vector<std::string> temp = split(line, " \t:\"");
 
-		// Пропускать неверные строки +
 		try {
 			if (line_count < PARSED_LINE - 1) {
 				line_count == 0 ? a = number_with_base(temp[1], std::stod(temp[0])) : b = number_with_base(temp[1], std::stod(temp[0]));

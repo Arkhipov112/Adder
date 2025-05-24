@@ -19,8 +19,5 @@ private:
 	bool is_valid_num() const;
 
 	std::string num;
-
-	// unsigned ?
-	// unsigned base = -4294967280U; - присвоиться значени 16
 	int base;
 };

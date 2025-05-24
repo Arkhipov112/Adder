@@ -10,9 +10,6 @@ public:
 	int get_to_base() const noexcept;
 
 private:
-	// Другое название +
 	number_with_base a, b;
-
-	// Другое название +
 	int to_base;
 };

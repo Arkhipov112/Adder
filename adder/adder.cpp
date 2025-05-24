@@ -32,8 +32,8 @@ std::string adder::to_str(int num, int base) {
 	while (num > 0) {
 		int r = num % base;
 
-		// Сделать проще +
-		res += r + (r < 10 ? '0' : 'A' - 10);
+		int val = r < 10 ? '0' : 'A' - 10;
+		res += r + val;
 
 		num /= base;
 	}
